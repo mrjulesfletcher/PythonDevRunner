@@ -1,4 +1,3 @@
-
 import subprocess
 import time
 import json
@@ -13,8 +12,23 @@ class RestartOnChangeHandler(FileSystemEventHandler):
 
     def on_modified(self, event):
         if self.runner.should_watch(event.src_path):
-            print(f"[Watcher] Detected change in {event.src_path}")
-            self.runner.restart()
+            print(f"[Watcher] File changed: {event.src_path}")
+            self.runner.restart(trigger=event.src_path)
+
+    def on_created(self, event):
+        if self.runner.should_watch(event.src_path):
+            print(f"[Watcher] New file: {event.src_path}")
+            self.runner.restart(trigger=event.src_path)
+
+    def on_moved(self, event):
+        if self.runner.should_watch(event.dest_path):
+            print(f"[Watcher] File moved to: {event.dest_path}")
+            self.runner.restart(trigger=event.dest_path)
+
+    def on_deleted(self, event):
+        if self.runner.should_watch(event.src_path):
+            print(f"[Watcher] File deleted: {event.src_path}")
+            self.runner.restart(trigger=event.src_path)
 
 class DevRunner:
     def __init__(self, entry='main.py', watch_exts=['.py'], exclude=[], debounce=0.5, verbose=True):
@@ -35,10 +49,12 @@ class DevRunner:
             print(f"[Runner] Launching {self.entry}")
         self.process = subprocess.Popen([sys.executable, self.entry])
 
-    def restart(self):
+    def restart(self, trigger=None):
         if self.process:
             self.process.terminate()
             self.process.wait()
+        if trigger:
+            print(f"[Runner] Restart triggered by: {trigger}")
         time.sleep(self.debounce)
         self.run()
 

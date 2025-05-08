@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: PythonDevRunner
-Version: 0.1
+Version: 0.1.1
 Summary: A Python auto-reloading development runner
 Author: Jules Le Masson
 License: MIT
