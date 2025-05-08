@@ -1,0 +1,8 @@
+
+{
+  "entry": "main.py",
+  "watch_ext": [".py"],
+  "exclude": ["__pycache__", "venv", ".venv"],
+  "debounce": 0.5,
+  "quiet": false
+}
