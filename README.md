@@ -1,4 +1,3 @@
-
 # PythonDevRunner
 
 Auto-reload your Python app when source files change. Useful for development of web servers, CLI tools, or any script-driven workflow.
@@ -7,12 +6,23 @@ Auto-reload your Python app when source files change. Useful for development of 
 
 - Watches for changes in `.py` files
 - Automatically restarts your app
+- Logs the **exact file** that triggered the restart
 - Configurable via CLI or JSON file
 - Cross-platform support
 
 ## 🛠 Installation
 
+### 📦 From PyPI
+
 ```bash
+pip install PythonDevRunner
+```
+
+### 🧪 From source
+
+```bash
+git clone https://github.com/mrjulesfletcher/PythonDevRunner.git
+cd PythonDevRunner
 pip install .
 ```
 
@@ -40,12 +50,27 @@ devrunner --config examples/config.json
 | Debounce     | `--debounce`   | `debounce`   | `0.5`      |
 | Verbose      | `--quiet`      | `quiet`      | `false`    |
 
+## 📝 Example Output
+
+```text
+[Watcher] File changed: /myproject/chat_panel.py
+[Runner] Restart triggered by: /myproject/chat_panel.py
+[Runner] Launching main.py
+```
+
 ## 📦 Packaging
 
-Supports installation via `pip install .` and CLI via `devrunner`.
+Supports installation via `pip install .` or from [PyPI](https://pypi.org/project/PythonDevRunner/).
 
 ---
 
 ## License
 
 MIT
+
+---
+
+### Author
+
+Created with ❤️ by **Jules Le Masson**  
+[github.com/mrjulesfletcher](https://github.com/mrjulesfletcher)
